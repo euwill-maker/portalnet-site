@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portalnet - Internet Ultra Rápida</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* ========== NAVBAR ========== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            padding: 0 40px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar-logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #6C3CE1, #FF6B6B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+
+        .navbar-logo span {
+            -webkit-text-fill-color: #FF6B6B;
+        }
+
+        .navbar-menu {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .navbar-menu a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .navbar-menu a:hover {
+            color: #6C3CE1;
+        }
+
+        .btn-portal {
+            background: linear-gradient(135deg, #6C3CE1, #9B59B6);
+            color: #fff !important;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-portal:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(108, 60, 225, 0.35);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .menu-toggle span {
+            width: 28px;
+            height: 3px;
+            background: #6C3CE1;
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        /* ========== HERO ========== */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a0533 0%, #3a1078 30%, #6C3CE1 60%, #FF6B6B 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 20px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 107, 107, 0.3), transparent 70%);
+            top: -100px;
+            right: -100px;
+            border-radius: 50%;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(108, 60, 225, 0.4), transparent 70%);
+            bottom: -50px;
+            left: -50px;
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 8px 24px;
+            border-radius: 50px;
+            color: #FFD93D;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 .highlight {
+            background: linear-gradient(90deg, #FFD93D, #FF6B6B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #FF6B6B, #FFD93D);
+            color: #1a0533;
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 107, 107, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(10px);
+            color: #fff;
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            text-decoration: none;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px);
+        }
+
+        /* ========== BENEFITS ========== */
+        .benefits {
+            padding: 100px 20px;
+            background: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #6C3CE1, #FF6B6B);
+            color: #fff;
+            padding: 6px 20px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #1a0533;
+            margin-bottom: 12px;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: #777;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        .benefit-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #f0f0f0;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(108, 60, 225, 0.12);
+        }
+
+        .benefit-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            margin: 0 auto 20px;
+        }
+
+        .benefit-card:nth-child(1) .benefit-icon {
+            background: linear-gradient(135deg, #6C3CE1, #9B59B6);
+        }
+
+        .benefit-card:nth-child(2) .benefit-icon {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E8E);
+        }
+
+        .benefit-card:nth-child(3) .benefit-icon {
+            background: linear-gradient(135deg, #FFD93D, #FFA502);
+        }
+
+        .benefit-card:nth-child(4) .benefit-icon {
+            background: linear-gradient(135deg, #00D2D3, #54A0FF);
+        }
+
+        .benefit-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1a0533;
+            margin-bottom: 10px;
+        }
+
+        .benefit-card p {
+            font-size: 0.95rem;
+            color: #888;
+            line-height: 1.6;
+        }
+
+        /* ========== PLANS ========== */
+        .plans {
+            padding: 100px 20px;
+            background: linear-gradient(180deg, #f8f5ff 0%, #fff 100%);
+        }
+
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 24px;
+            align-items: stretch;
+        }
+
+        .plan-card {
+            background: #fff;
+            border-radius: 24px;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 2px solid #f0f0f0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 60px rgba(108, 60, 225, 0.15);
+        }
+
+        .plan-card.featured {
+            border: 2px solid #6C3CE1;
+            background: linear-gradient(180deg, #f8f5ff 0%, #fff 30%);
+        }
+
+        .plan-badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #FF6B6B, #FFD93D);
+            color: #1a0533;
+            padding: 6px 24px;
+            border-radius: 50px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+
+        .plan-speed {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #6C3CE1, #FF6B6B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .plan-speed-unit {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .plan-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1a0533;
+            margin-bottom: 20px;
+        }
+
+        .plan-price {
+            margin-bottom: 24px;
+        }
+
+        .plan-price .currency {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #6C3CE1;
+            vertical-align: super;
+        }
+
+        .plan-price .amount {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #1a0533;
+        }
+
+        .plan-price .period {
+            font-size: 0.9rem;
+            color: #999;
+            font-weight: 500;
+        }
+
+        .plan-features {
+            list-style: none;
+            margin-bottom: 30px;
+            text-align: left;
+            flex-grow: 1;
+        }
+
+        .plan-features li {
+            padding: 8px 0;
+            font-size: 0.92rem;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .plan-features li::before {
+            content: '✓';
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6C3CE1, #9B59B6);
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .btn-plan {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-plan-default {
+            background: #f0ecff;
+            color: #6C3CE1;
+        }
+
+        .btn-plan-default:hover {
+            background: #6C3CE1;
+            color: #fff;
+            box-shadow: 0 8px 25px rgba(108, 60, 225, 0.35);
+        }
+
+        .btn-plan-featured {
+            background: linear-gradient(135deg, #6C3CE1, #9B59B6);
+            color: #fff;
+        }
+
+        .btn-plan-featured:hover {
+            box-shadow: 0 8px 25px rgba(108, 60, 225, 0.45);
+            transform: translateY(-2px);
+        }
+
+        /* ========== STREAMING ========== */
+        .streaming {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, #1a0533 0%, #3a1078 100%);
+            color: #fff;
+            text-align: center;
+        }
+
+        .streaming h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .streaming h2 .highlight {
+            background: linear-gradient(90deg, #FFD93D, #FF6B6B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .streaming > .container > p {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.7);
+            max-width: 600px;
+            margin: 0 auto 50px;
+        }
+
+        .streaming-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .streaming-card {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 20px;
+            padding: 40px 20px;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .streaming-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.15);
+        }
+
+        .streaming-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+
+        .streaming-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .streaming-card p {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* ========== CTA ========== */
+        .cta-section {
+            padding: 100px 20px;
+            background: #fff;
+            text-align: center;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, #6C3CE1 0%, #FF6B6B 50%, #FFD93D 100%);
+            border-radius: 30px;
+            padding: 80px 40px;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            top: -80px;
+            right: -80px;
+        }
+
+        .cta-box h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        .cta-box p {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 40px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+        }
+
+        .btn-cta {
+            display: inline-block;
+            background: #fff;
+            color: #6C3CE1;
+            padding: 18px 48px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+        }
+
+        /* ========== FAQ ========== */
+        .faq {
+            padding: 100px 20px;
+            background: #f8f5ff;
+        }
+
+        .faq-list {
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: #fff;
+            border-radius: 16px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            border: 1px solid #f0f0f0;
+            transition: box-shadow 0.3s;
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 8px 25px rgba(108, 60, 225, 0.08);
+        }
+
+        .faq-question {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 22px 28px;
+            background: none;
+            border: none;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1a0533;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .faq-question .arrow {
+            font-size: 1.3rem;
+            color: #6C3CE1;
+            transition: transform 0.3s;
+            flex-shrink: 0;
+            margin-left: 16px;
+        }
+
+        .faq-item.active .faq-question .arrow {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+            padding: 0 28px 22px;
+        }
+
+        .faq-answer p {
+            font-size: 0.95rem;
+            color: #777;
+            line-height: 1.7;
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: #1a0533;
+            color: #fff;
+            padding: 60px 20px 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+
+        .footer-logo {
+            font-size: 1.6rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #6C3CE1, #FF6B6B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+        }
+
+        .footer-col p {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .footer-col h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #FFD93D;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-col ul li a:hover {
+            color: #FF6B6B;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: background 0.3s;
+        }
+
+        .footer-social a:hover {
+            background: linear-gradient(135deg, #6C3CE1, #FF6B6B);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-bottom p {
+            color: rgba(255,255,255,0.4);
+            font-size: 0.8rem;
+        }
+
+        /* ========== WHATSAPP FLOAT ========== */
+        .whatsapp-wrapper {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 12px;
+        }
+
+        /* Tooltip balloon */
+        .whatsapp-tooltip {
+            background: #fff;
+            color: #1a0533;
+            padding: 12px 20px;
+            border-radius: 14px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            position: relative;
+            animation: tooltipFadeLoop 6s ease-in-out infinite;
+            white-space: nowrap;
+            line-height: 1.4;
+        }
+
+        .whatsapp-tooltip::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            right: 24px;
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid #fff;
+        }
+
+        .whatsapp-tooltip .tooltip-highlight {
+            color: #25D366;
+            font-weight: 800;
+        }
+
+        .whatsapp-tooltip .tooltip-close {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #eee;
+            border: none;
+            font-size: 0.65rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            transition: background 0.2s;
+        }
+
+        .whatsapp-tooltip .tooltip-close:hover {
+            background: #ddd;
+        }
+
+        @keyframes tooltipFadeLoop {
+            0%, 100% { opacity: 0; transform: translateY(8px) scale(0.95); pointer-events: none; }
+            15%, 85% { opacity: 1; transform: translateY(0) scale(1); pointer-events: all; }
+        }
+
+        /* Button container */
+        .whatsapp-btn-wrap {
+            position: relative;
+        }
+
+        /* Pulsing rings */
+        .whatsapp-btn-wrap::before,
+        .whatsapp-btn-wrap::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid #25D366;
+            animation: ringPulse 2.5s ease-out infinite;
+        }
+
+        .whatsapp-btn-wrap::after {
+            animation-delay: 1.2s;
+        }
+
+        @keyframes ringPulse {
+            0% { width: 64px; height: 64px; opacity: 0.6; }
+            100% { width: 110px; height: 110px; opacity: 0; }
+        }
+
+        /* Main button */
+        .whatsapp-float {
+            position: relative;
+            z-index: 2;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.45);
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: floatBounce 3s ease-in-out infinite;
+        }
+
+        .whatsapp-float svg {
+            width: 32px;
+            height: 32px;
+            fill: #fff;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.15));
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.12);
+            box-shadow: 0 12px 40px rgba(37, 211, 102, 0.55);
+            animation: none;
+        }
+
+        /* Notification dot */
+        .whatsapp-dot {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #FF6B6B;
+            border: 3px solid #fff;
+            z-index: 3;
+            animation: dotPop 4s ease-in-out infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.55rem;
+            color: #fff;
+            font-weight: 800;
+        }
+
+        @keyframes dotPop {
+            0%, 80%, 100% { transform: scale(1); }
+            85% { transform: scale(1.3); }
+            90% { transform: scale(0.9); }
+            95% { transform: scale(1.1); }
+        }
+
+        @keyframes floatBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .navbar-menu {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: #fff;
+                flex-direction: column;
+                padding: 20px;
+                gap: 16px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+
+            .navbar-menu.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .plan-speed {
+                font-size: 2.8rem;
+            }
+
+            .cta-box {
+                padding: 50px 24px;
+            }
+
+            .cta-box h2 {
+                font-size: 1.8rem;
+            }
+
+            .streaming h2 {
+                font-size: 1.8rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-logo">Portal<span>net</span></div>
+        <ul class="navbar-menu" id="navMenu">
+            <li><a href="#inicio">Início</a></li>
+            <li><a href="#planos">Planos</a></li>
+            <li><a href="#beneficios">Benefícios</a></li>
+            <li><a href="#faq">Dúvidas</a></li>
+            <li><a href="#" class="btn-portal">Central do Assinante</a></li>
+        </ul>
+        <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <div class="hero-badge">🚀 Fibra Óptica de Verdade</div>
+            <h1>Internet Ultra Rápida <br>para <span class="highlight">Toda a Família</span></h1>
+            <p>Conecte todos os seus dispositivos sem travamentos. Streaming, jogos, trabalho remoto e muito mais com a velocidade que você merece.</p>
+            <div class="hero-buttons">
+                <a href="#planos" class="btn-primary">Ver Planos</a>
+                <a href="https://wa.me/5500000000000?text=Olá! Quero saber sobre os planos Portalnet" class="btn-secondary">📱 Falar no WhatsApp</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- BENEFITS -->
+    <section class="benefits" id="beneficios">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">Por que escolher a Portalnet?</div>
+                <h2>Benefícios de Verdade</h2>
+                <p>Não é promessa, é o que você recebe no dia a dia com a gente.</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">⚡</div>
+                    <h3>Velocidade Garantida</h3>
+                    <p>100% da velocidade contratada via cabo. Sem pegadinhas, sem letras miúdas.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">📡</div>
+                    <h3>Wi-Fi Grátis</h3>
+                    <p>Roteador Wi-Fi de última geração incluso em todos os planos, sem custo adicional.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🔒</div>
+                    <h3>Sem Fidelidade</h3>
+                    <p>Você fica porque quer, não porque é obrigado. Cancele quando quiser.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🛠️</div>
+                    <h3>Suporte 24h</h3>
+                    <p>Equipe técnica disponível a qualquer hora. Atendimento rápido e humanizado.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PLANS -->
+    <section class="plans" id="planos">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">Planos</div>
+                <h2>Escolha o Plano Ideal</h2>
+                <p>Internet de fibra óptica com instalação grátis e sem fidelidade.</p>
+            </div>
+            <div class="plans-grid">
+                <!-- Plan 1 -->
+                <div class="plan-card">
+                    <div class="plan-speed">200</div>
+                    <div class="plan-speed-unit">Mega</div>
+                    <div class="plan-name">Essencial</div>
+                    <div class="plan-price">
+                        <span class="currency">R$</span>
+                        <span class="amount">79</span>
+                        <span class="period">,90/mês</span>
+                    </div>
+                    <ul class="plan-features">
+                        <li>Download até 200 Mbps</li>
+                        <li>Upload até 100 Mbps</li>
+                        <li>Wi-Fi grátis</li>
+                        <li>Sem fidelidade</li>
+                        <li>Instalação gratuita</li>
+                    </ul>
+                    <a href="https://wa.me/5500000000000?text=Quero o plano Essencial 200MB" class="btn-plan btn-plan-default">Assinar Agora</a>
+                </div>
+
+                <!-- Plan 2 -->
+                <div class="plan-card">
+                    <div class="plan-speed">400</div>
+                    <div class="plan-speed-unit">Mega</div>
+                    <div class="plan-name">Conecta</div>
+                    <div class="plan-price">
+                        <span class="currency">R$</span>
+                        <span class="amount">99</span>
+                        <span class="period">,90/mês</span>
+                    </div>
+                    <ul class="plan-features">
+                        <li>Download até 400 Mbps</li>
+                        <li>Upload até 200 Mbps</li>
+                        <li>Wi-Fi grátis</li>
+                        <li>Sem fidelidade</li>
+                        <li>Instalação gratuita</li>
+                    </ul>
+                    <a href="https://wa.me/5500000000000?text=Quero o plano Conecta 400MB" class="btn-plan btn-plan-default">Assinar Agora</a>
+                </div>
+
+                <!-- Plan 3 - Featured -->
+                <div class="plan-card featured">
+                    <div class="plan-badge">⭐ Mais Vendido</div>
+                    <div class="plan-speed">600</div>
+                    <div class="plan-speed-unit">Mega</div>
+                    <div class="plan-name">Turbo</div>
+                    <div class="plan-price">
+                        <span class="currency">R$</span>
+                        <span class="amount">119</span>
+                        <span class="period">,90/mês</span>
+                    </div>
+                    <ul class="plan-features">
+                        <li>Download até 600 Mbps</li>
+                        <li>Upload até 300 Mbps</li>
+                        <li>Wi-Fi grátis</li>
+                        <li>Sem fidelidade</li>
+                        <li>Instalação gratuita</li>
+                        <li>IP Fixo disponível</li>
+                    </ul>
+                    <a href="https://wa.me/5500000000000?text=Quero o plano Turbo 600MB" class="btn-plan btn-plan-featured">Assinar Agora</a>
+                </div>
+
+                <!-- Plan 4 -->
+                <div class="plan-card">
+                    <div class="plan-speed">1</div>
+                    <div class="plan-speed-unit">Giga</div>
+                    <div class="plan-name">Ultra</div>
+                    <div class="plan-price">
+                        <span class="currency">R$</span>
+                        <span class="amount">149</span>
+                        <span class="period">,90/mês</span>
+                    </div>
+                    <ul class="plan-features">
+                        <li>Download até 1 Gbps</li>
+                        <li>Upload até 500 Mbps</li>
+                        <li>Wi-Fi grátis</li>
+                        <li>Sem fidelidade</li>
+                        <li>Instalação gratuita</li>
+                        <li>IP Fixo incluso</li>
+                    </ul>
+                    <a href="https://wa.me/5500000000000?text=Quero o plano Ultra 1 Giga" class="btn-plan btn-plan-default">Assinar Agora</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STREAMING -->
+    <section class="streaming">
+        <div class="container">
+            <h2>Aproveite o Melhor do <span class="highlight">Streaming</span></h2>
+            <p>Com a velocidade Portalnet, assista seus conteúdos favoritos sem buffer e em alta definição.</p>
+            <div class="streaming-grid">
+                <div class="streaming-card">
+                    <div class="icon">🎬</div>
+                    <h3>Filmes & Séries</h3>
+                    <p>Netflix, Prime Video, Disney+ sem travamentos</p>
+                </div>
+                <div class="streaming-card">
+                    <div class="icon">🎮</div>
+                    <h3>Games Online</h3>
+                    <p>Ping baixo para jogar sem lag</p>
+                </div>
+                <div class="streaming-card">
+                    <div class="icon">💼</div>
+                    <h3>Home Office</h3>
+                    <p>Videochamadas em HD sem quedas</p>
+                </div>
+                <div class="streaming-card">
+                    <div class="icon">📱</div>
+                    <h3>Multi Dispositivos</h3>
+                    <p>Conecte toda a família ao mesmo tempo</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="cta-box">
+            <h2>Cansado de Internet Lenta?</h2>
+            <p>Junte-se a milhares de clientes satisfeitos. Mude para a Portalnet e sinta a diferença.</p>
+            <a href="https://wa.me/5500000000000?text=Olá! Quero contratar a Portalnet" class="btn-cta">Contratar Agora</a>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">FAQ</div>
+                <h2>Dúvidas Frequentes</h2>
+                <p>Tire suas principais dúvidas sobre nossos serviços.</p>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        A instalação é realmente gratuita?
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Sim! A instalação é 100% gratuita para todos os planos. Nossa equipe vai até o seu endereço e faz toda a configuração sem nenhum custo adicional.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Tem fidelidade ou multa de cancelamento?
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Não! Trabalhamos sem contrato de fidelidade. Você pode cancelar a qualquer momento sem pagar multa. Acreditamos que você fica porque quer.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        A velocidade é garantida?
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Sim! Entregamos 100% da velocidade contratada via cabo de rede. Via Wi-Fi, a velocidade pode variar conforme o ambiente e o dispositivo.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Como funciona o suporte técnico?
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Nosso suporte funciona 24 horas, 7 dias por semana. Você pode entrar em contato via WhatsApp, telefone ou pelo app do cliente.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Quanto tempo leva para instalar?
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Após a confirmação da viabilidade técnica, a instalação é agendada em até 48 horas. O processo de instalação leva em média 1 a 2 horas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="footer-logo">Portalnet</div>
+                <p>Conectando você ao que importa, com velocidade e confiança.</p>
+                <p style="margin-top: 12px; font-size: 0.8rem;">CNPJ: 00.000.000/0001-00</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Facebook">f</a>
+                    <a href="#" aria-label="Instagram">ig</a>
+                    <a href="#" aria-label="YouTube">yt</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Links</h4>
+                <ul>
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#planos">Planos</a></li>
+                    <li><a href="#beneficios">Benefícios</a></li>
+                    <li><a href="#faq">Dúvidas</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contato</h4>
+                <ul>
+                    <li><a href="tel:+550000000000">📞 (00) 0000-0000</a></li>
+                    <li><a href="https://wa.me/5500000000000">📱 WhatsApp</a></li>
+                    <li><a href="mailto:contato@portalnet.com.br">✉️ contato@portalnet.com.br</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Endereço</h4>
+                <p>Rua Exemplo, 123 - Centro<br>Cidade - UF<br>CEP: 00000-000</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Portalnet Telecomunicações. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- WHATSAPP FLOAT -->
+    <div class="whatsapp-wrapper" id="whatsappWrapper">
+        <div class="whatsapp-tooltip" id="whatsappTooltip">
+            Fale agora e ganhe <span class="tooltip-highlight">desconto!</span>
+            <button class="tooltip-close" id="tooltipClose" aria-label="Fechar">✕</button>
+        </div>
+        <div class="whatsapp-btn-wrap">
+            <span class="whatsapp-dot">1</span>
+            <a href="https://wa.me/5500000000000?text=Olá! Quero saber sobre os planos Portalnet" class="whatsapp-float" aria-label="WhatsApp">
+                <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16.004 0h-.008C7.174 0 0 7.176 0 16c0 3.5 1.13 6.742 3.05 9.378L1.054 31.29l6.172-1.96A15.89 15.89 0 0016.004 32C24.826 32 32 24.822 32 16S24.826 0 16.004 0zm9.31 22.608c-.39 1.1-1.932 2.014-3.172 2.28-.848.18-1.956.324-5.684-1.222-4.772-1.978-7.84-6.81-8.078-7.126-.23-.316-1.932-2.574-1.932-4.908 0-2.334 1.224-3.48 1.658-3.956.39-.43 1.032-.628 1.646-.628.198 0 .376.01.536.018.474.02.712.048 1.024.792.39.93 1.34 3.264 1.458 3.502.12.238.238.554.078.87-.15.324-.282.526-.52.806-.238.28-.5.624-.714.838-.238.238-.486.496-.208.97.278.474 1.236 2.038 2.654 3.302 1.822 1.622 3.358 2.126 3.832 2.364.474.238.752.198 1.03-.12.286-.316 1.224-1.424 1.55-1.912.318-.488.644-.408 1.082-.244.442.158 2.774 1.31 3.248 1.548.474.238.79.356.908.554.118.198.118 1.15-.272 2.252z"/></svg>
+            </a>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('navMenu').classList.toggle('active');
+        });
+
+        // FAQ accordion
+        document.querySelectorAll('.faq-question').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var item = this.parentElement;
+                var isActive = item.classList.contains('active');
+
+                // Close all
+                document.querySelectorAll('.faq-item').forEach(function(el) {
+                    el.classList.remove('active');
+                });
+
+                // Open clicked if it wasn't open
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // WhatsApp tooltip close
+        document.getElementById('tooltipClose').addEventListener('click', function(e) {
+            e.stopPropagation();
+            document.getElementById('whatsappTooltip').style.display = 'none';
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+            anchor.addEventListener('click', function(e) {
+                var target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // Close mobile menu
+                    document.getElementById('navMenu').classList.remove('active');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
